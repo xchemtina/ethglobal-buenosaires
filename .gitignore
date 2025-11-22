@@ -1,0 +1,52 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Testing
+coverage/
+
+# Production
+build/
+dist/
+out/
+
+# Misc
+.DS_Store
+*.log
+*.env
+*.env.local
+.env*.local
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+env/
+venv/
+.venv/
+*.egg-info/
+.pytest_cache/
+
+# Foundry/Hardhat
+cache/
+artifacts/
+typechain/
+typechain-types/
+
+# Subgraph
+subgraph/build/
+subgraph/generated/
+
+# Local development
+.cache/
+tmp/
+temp/

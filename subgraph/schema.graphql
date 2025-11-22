@@ -1,0 +1,9 @@
+type Experiment @entity {
+  id: ID!
+  submitter: Bytes!
+  dataHash: Bytes!
+  difficulty: BigInt!
+  cid: String!
+  timestamp: BigInt!
+}
+

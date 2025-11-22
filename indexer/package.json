@@ -1,0 +1,10 @@
+{
+  "name": "pox-indexer",
+  "version": "0.1.0",
+  "type": "module",
+  "dependencies": {
+    "graphql-request": "^7.0.1",
+    "dotenv": "^16.4.0"
+  }
+}
+
