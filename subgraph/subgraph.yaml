@@ -1,29 +1,33 @@
-specVersion: 1.0.0
-indexerHints:
-  prune: auto
-
+specVersion: 0.0.5
+description: PoX – HPLC Provenance and Experiment Indexer
 schema:
   file: ./schema.graphql
 
 dataSources:
   - kind: ethereum
-    name: PoXRegistry
-    network: filecoin-calibration
+    name: PoX
+    network: calibnet
     source:
-      address: "0xYOUR_DEPLOYED_REGISTRY"
-      abi: PoXRegistry
-      startBlock: 0
+      address: "0xYourContractHere"
+      abi: PoXContract
+      startBlock: 1234567
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - Experiment
+        - Sample
+        - Chromatogram
+        - Challenge
       abis:
-        - name: PoXRegistry
-          file: ./abis/PoXRegistry.json
+        - name: PoXContract
+          file: ./abis/PoXContract.json
       eventHandlers:
-        - event: ExperimentSubmitted(bytes32,address,bytes32,uint256)
+        - event: ExperimentSubmitted(indexed bytes32,indexed address,string,string)
           handler: handleExperimentSubmitted
+        - event: ChallengeInitiated(indexed bytes32,indexed address)
+          handler: handleChallengeInitiated
+        - event: ChallengeResolved(indexed bytes32,string)
+          handler: handleChallengeResolved
       file: ./src/mapping.ts
-

@@ -50,3 +50,7 @@ subgraph/generated/
 .cache/
 tmp/
 temp/
+
+# Deployment secrets
+.env.deployed
+*.deployed

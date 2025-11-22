@@ -1,0 +1,65 @@
+{
+  "traces": [
+    {
+      "sampleId": "HPLC-0001",
+      "file": "trace-001.json",
+      "scenario": "clean",
+      "peakCount": 5
+    },
+    {
+      "sampleId": "HPLC-0002",
+      "file": "trace-002.json",
+      "scenario": "baseline_drift",
+      "peakCount": 4
+    },
+    {
+      "sampleId": "HPLC-0003",
+      "file": "trace-003.json",
+      "scenario": "tailing",
+      "peakCount": 5
+    },
+    {
+      "sampleId": "HPLC-0004",
+      "file": "trace-004.json",
+      "scenario": "baseline_drift",
+      "peakCount": 5
+    },
+    {
+      "sampleId": "HPLC-0005",
+      "file": "trace-005.json",
+      "scenario": "baseline_drift",
+      "peakCount": 5
+    },
+    {
+      "sampleId": "HPLC-0006",
+      "file": "trace-006.json",
+      "scenario": "tailing",
+      "peakCount": 4
+    },
+    {
+      "sampleId": "HPLC-0007",
+      "file": "trace-007.json",
+      "scenario": "baseline_drift",
+      "peakCount": 4
+    },
+    {
+      "sampleId": "HPLC-0008",
+      "file": "trace-008.json",
+      "scenario": "noisy",
+      "peakCount": 5
+    },
+    {
+      "sampleId": "HPLC-0009",
+      "file": "trace-009.json",
+      "scenario": "noisy",
+      "peakCount": 3
+    },
+    {
+      "sampleId": "HPLC-0010",
+      "file": "trace-010.json",
+      "scenario": "clean",
+      "peakCount": 3
+    }
+  ],
+  "total": 10
+}

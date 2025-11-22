@@ -1,9 +1,32 @@
 type Experiment @entity {
   id: ID!
-  submitter: Bytes!
-  dataHash: Bytes!
-  difficulty: BigInt!
-  cid: String!
+  scientist: Bytes!
   timestamp: BigInt!
+  sample: Sample!
+  chromatogram: Chromatogram!
+  filecoinCid: String!
+  reputationChange: Int!
 }
 
+type Sample @entity {
+  id: ID!
+  name: String!
+  metadataURI: String!
+}
+
+type Chromatogram @entity {
+  id: ID!
+  rawDataCID: String!
+  peakCount: Int!
+  retentionTimes: [BigDecimal!]!
+  areas: [BigDecimal!]!
+  runMetadata: String!
+}
+
+type Challenge @entity {
+  id: ID!
+  experiment: Experiment!
+  challenger: Bytes!
+  result: String!
+  timestamp: BigInt!
+}

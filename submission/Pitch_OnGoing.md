@@ -125,7 +125,6 @@ The `n` represents network effects: each scientist joining makes the system more
 ## Traction
 
 ### Deployed Infrastructure
-- ✅ Smart contracts on Arbitrum Sepolia: [INSERT ADDRESSES]
 - ✅ Synapse integration tested: [INSERT CID]
 - ✅ Working CLI tool: `pox generate`, `pox submit`
 - ✅ Live demo: [INSERT URL]
@@ -222,11 +221,11 @@ Ready to extend beyond HPLC:
 
 ## Team
 
-**Cris Chimia DAO** (Founder)
+**Cristina Castro ChimiaDAO** (Founder)
 - Professional synthetic chemist
 - Deep expertise in analytical chemistry (HPLC, NMR, GC-MS)
 - Background in blockchain infrastructure
-- Based in Buenos Aires, Argentina
+- Based in Bogota, Colombia as well as Oxford, England and San Diego, California
 
 **Seeking collaborators**:
 - Blockchain engineers (fraud proofs, ZK primitives)

@@ -127,12 +127,12 @@ contract ChallengeManager {
 
         if (experimentValid) {
             // Challenger confirms correctness: small positive reward
-            submitterDelta = int256(int64(difficulty));          // +D
-            challengerDelta = int256(int64(difficulty / 10));    // +D/10
+            submitterDelta = int256(difficulty);          // +D
+            challengerDelta = int256(difficulty / 10);    // +D/10
         } else {
             // Challenger flags mismatch: slash submitter, reward challenger
-            submitterDelta = -int256(int64(difficulty));
-            challengerDelta = int256(int64(difficulty));
+            submitterDelta = -int256(difficulty);
+            challengerDelta = int256(difficulty);
         }
 
         reputation.adjustReputation(submitter, submitterDelta);

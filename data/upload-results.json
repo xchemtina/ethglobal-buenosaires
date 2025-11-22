@@ -1,0 +1,52 @@
+[
+  {
+    "success": false,
+    "sampleId": "trace-001.json",
+    "error": "StorageContext uploadPiece failed: Failed to upload piece to service provider - Input must be an AsyncIterable"
+  },
+  {
+    "success": false,
+    "sampleId": "trace-002.json",
+    "error": "StorageContext uploadPiece failed: Failed to upload piece to service provider - Input must be an AsyncIterable"
+  },
+  {
+    "success": false,
+    "sampleId": "trace-003.json",
+    "error": "StorageContext uploadPiece failed: Failed to upload piece to service provider - Input must be an AsyncIterable"
+  },
+  {
+    "success": false,
+    "sampleId": "trace-004.json",
+    "error": "StorageContext uploadPiece failed: Failed to upload piece to service provider - Input must be an AsyncIterable"
+  },
+  {
+    "success": false,
+    "sampleId": "trace-005.json",
+    "error": "StorageContext uploadPiece failed: Failed to upload piece to service provider - Input must be an AsyncIterable"
+  },
+  {
+    "success": false,
+    "sampleId": "trace-006.json",
+    "error": "StorageContext uploadPiece failed: Failed to upload piece to service provider - Input must be an AsyncIterable"
+  },
+  {
+    "success": false,
+    "sampleId": "trace-007.json",
+    "error": "StorageContext uploadPiece failed: Failed to upload piece to service provider - Input must be an AsyncIterable"
+  },
+  {
+    "success": false,
+    "sampleId": "trace-008.json",
+    "error": "StorageContext uploadPiece failed: Failed to upload piece to service provider - Input must be an AsyncIterable"
+  },
+  {
+    "success": false,
+    "sampleId": "trace-009.json",
+    "error": "StorageContext uploadPiece failed: Failed to upload piece to service provider - Input must be an AsyncIterable"
+  },
+  {
+    "success": false,
+    "sampleId": "trace-010.json",
+    "error": "StorageContext uploadPiece failed: Failed to upload piece to service provider - Input must be an AsyncIterable"
+  }
+]

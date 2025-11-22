@@ -281,23 +281,73 @@ A: Think "scientific work = proof-of-work for science." Complexity matters, frau
 
 ---
 
-### Hours 10-14: Build Minimal CLI
+### Hours 10-14: Get Dashboard Running Locally (DONE)
 
-**Goal**: Single executable that does end-to-end flow
+**Status**: ✅ COMPLETED
 
-**Implementation**:
+**What Was Built**:
+1. HPLC trace loader (`lib/hplc-loader.ts`)
+2. Copy script (`scripts/copy-traces.sh`)
+3. Integration documentation (`HPLC_TRACES.md`)
+4. Technical overview (`INTEGRATION_SUMMARY.md`)
 
+**To Run Dashboard**:
 ```bash
-# packages/cli/pox.ts
-import { Command } from 'commander';
-import { generatePoXExperiment } from '../experiments/src/pox';
-import { Synapse } from '@filoz/synapse-sdk';
-import { ethers } from 'ethers';
+cd ~/ETHGlobalBuenosAires/blockchain-status-plotter
+pnpm install
+./scripts/copy-traces.sh
+pnpm dev
+# Opens http://localhost:3000
+```
 
-const program = new Command();
+**Current Status**: Dashboard displays mock data. To use real HPLC traces, uncomment 2 lines in `lib/data-service.ts`
 
-program
-  .name('pox')
+---
+
+### Hours 14-18: Deploy Dashboard Online
+
+**Goal**: Live demo URL for judges
+
+**Options**:
+
+#### Option 1: Vercel (Recommended)
+```bash
+cd blockchain-status-plotter
+pnpm install vercel -g
+vercel --prod
+# Follow prompts, auto-deploys from git
+```
+
+**Pros**: Zero config, auto SSL, fast CDN, free tier  
+**Cons**: Public GitHub repo required
+
+#### Option 2: Netlify
+```bash
+cd blockchain-status-plotter
+npm install netlify-cli -g
+netlify deploy --prod
+```
+
+**Pros**: Similar to Vercel, drag-drop option  
+**Cons**: Slightly slower builds
+
+#### Option 3: GitHub Pages (Static Export)
+```bash
+cd blockchain-status-plotter
+# Add to next.config.mjs:
+# output: 'export'
+npm run build
+gh-pages -d out
+```
+
+**Pros**: Free, no account needed  
+**Cons**: No SSR, manual updates
+
+**Deliverable**: Live URL like `https://pox-dashboard.vercel.app`
+
+---
+
+### Hours 18-20: Build Minimal CLI
   .description('PoX CLI - Register experiments on-chain')
   .version('0.1.0');
 
