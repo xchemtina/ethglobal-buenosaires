@@ -4,6 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
+import { CID } from 'multiformats/cid';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -97,11 +98,18 @@ async function uploadExperiment(filePath, provider, wallet, registry, synapse) {
     
     // 2. Upload to Synapse (Filecoin)
     console.log(`   ⬆️  Uploading to Filecoin...`);
-    // Convert JSON to Uint8Array for Synapse
+    // Convert JSON to Uint8Array for Synapse storage API
     const experimentJson = JSON.stringify(experiment);
     const experimentBytes = new TextEncoder().encode(experimentJson);
-    const cid = await synapse.storage.upload(experimentBytes);
+    const uploadResult = await synapse.storage.upload(experimentBytes);
+    
+    // Extract CID bytes and convert to base32 string
+    const cidBytes = uploadResult.pieceCid['/'];
+    const cidObj = CID.decode(cidBytes);
+    const cid = cidObj.toString();
+    
     console.log(`   ✅ Filecoin CID: ${cid}`);
+    console.log(`   📏 Piece ID: ${uploadResult.pieceId}, Size: ${uploadResult.size} bytes`);
     
     // 3. Compute hashes
     const dataHash = hashJson({

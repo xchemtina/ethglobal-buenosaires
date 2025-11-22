@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "pox-subgraph": {
+      "command": "npx",
+      "args": [
+        "@graphprotocol/subgraph-mcp-server"
+      ],
+      "env": {
+        "GRAPH_API_KEY": "YOUR_GRAPH_API_KEY_HERE",
+        "DEFAULT_SUBGRAPH": "YOUR_SUBGRAPH_ID_HERE",
+        "SUBGRAPH_NETWORK": "arbitrum-sepolia"
+      }
+    }
+  }
+}

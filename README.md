@@ -11,6 +11,7 @@ PoX (Proof-of-X) implements a reputation system where scientists earn verifiable
 - **On-chain verification**: Smart contracts on Filecoin Cloud track experiments, reputation, and challenges
 - **Indexed metadata**: The Graph subgraph indexes experiment metadata for querying
 - **LLM-readable journal**: Structured metadata enables AI agents to learn from the network's lab journal
+- **AI-powered queries**: The Graph's Subgraph MCP enables natural language queries ("Show me all caffeine experiments")
 - **Real-time visualization**: Next.js dashboard displays experiments, traces, and blockchain activity
 
 This repository was created for **ETH Global Buenos Aires** hackathon, with future collaboration with **Causality Network** for real lab instrument integration.

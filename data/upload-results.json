@@ -2,51 +2,51 @@
   {
     "success": false,
     "sampleId": "trace-001.json",
-    "error": "StorageContext uploadPiece failed: Failed to upload piece to service provider - Input must be an AsyncIterable"
+    "error": "invalid string value (argument=\"str\", value=0x0155912023eb770c5fb0e52bb385defe70aa3dfc1cf408ac5c2517f3aeae5731c036effa7a4ce21c, code=INVALID_ARGUMENT, version=6.15.0)"
   },
   {
     "success": false,
     "sampleId": "trace-002.json",
-    "error": "StorageContext uploadPiece failed: Failed to upload piece to service provider - Input must be an AsyncIterable"
+    "error": "invalid string value (argument=\"str\", value=0x0155912023e57f0c8b0a37d513a80b99ae5e21f12206638086211b33634363ee4c06fd28a97bbe0d, code=INVALID_ARGUMENT, version=6.15.0)"
   },
   {
     "success": false,
     "sampleId": "trace-003.json",
-    "error": "StorageContext uploadPiece failed: Failed to upload piece to service provider - Input must be an AsyncIterable"
+    "error": "invalid string value (argument=\"str\", value=0x0155912023c3770c21418fd598742a848ebbebafebd8cab847047642ac4ae9846e85b7cc7b793d1b, code=INVALID_ARGUMENT, version=6.15.0)"
   },
   {
     "success": false,
     "sampleId": "trace-004.json",
-    "error": "StorageContext uploadPiece failed: Failed to upload piece to service provider - Input must be an AsyncIterable"
+    "error": "invalid string value (argument=\"str\", value=0x0155912023897f0c0e8c5c3a7e6dcab89b02d19ea3583b10dc3c69f9f5a3cf32063cf48178d8ca1c, code=INVALID_ARGUMENT, version=6.15.0)"
   },
   {
     "success": false,
     "sampleId": "trace-005.json",
-    "error": "StorageContext uploadPiece failed: Failed to upload piece to service provider - Input must be an AsyncIterable"
+    "error": "invalid string value (argument=\"str\", value=0x0155912023dc7f0cda231fc0f35770c61832b8ec953a077c955d77b5fd63900d3dd86ec1225c4604, code=INVALID_ARGUMENT, version=6.15.0)"
   },
   {
     "success": false,
     "sampleId": "trace-006.json",
-    "error": "StorageContext uploadPiece failed: Failed to upload piece to service provider - Input must be an AsyncIterable"
+    "error": "invalid string value (argument=\"str\", value=0x015591202398770c3d68e589277b3a99d2de67c91a36b5cd2db764f31f911545fb2d8d481f361818, code=INVALID_ARGUMENT, version=6.15.0)"
   },
   {
     "success": false,
     "sampleId": "trace-007.json",
-    "error": "StorageContext uploadPiece failed: Failed to upload piece to service provider - Input must be an AsyncIterable"
+    "error": "invalid string value (argument=\"str\", value=0x01559120248b80010cf6c7882217408642fcf47b12a92f7d07f0553f1ca9f1a6a897f049881c27a82b, code=INVALID_ARGUMENT, version=6.15.0)"
   },
   {
     "success": false,
     "sampleId": "trace-008.json",
-    "error": "StorageContext uploadPiece failed: Failed to upload piece to service provider - Input must be an AsyncIterable"
+    "error": "invalid string value (argument=\"str\", value=0x0155912023fb750c7532211c9c12236d1ce7bde9312880989bba854e5f5f74bfc702dbc796585f11, code=INVALID_ARGUMENT, version=6.15.0)"
   },
   {
     "success": false,
     "sampleId": "trace-009.json",
-    "error": "StorageContext uploadPiece failed: Failed to upload piece to service provider - Input must be an AsyncIterable"
+    "error": "invalid string value (argument=\"str\", value=0x0155912023e2750cb361a5b28b841d4762978233168c35cefda7be89b6f3851d9766b9c849c2f914, code=INVALID_ARGUMENT, version=6.15.0)"
   },
   {
     "success": false,
     "sampleId": "trace-010.json",
-    "error": "StorageContext uploadPiece failed: Failed to upload piece to service provider - Input must be an AsyncIterable"
+    "error": "invalid string value (argument=\"str\", value=0x0155912023a2780ce301bb299e31ca26d3f5685f74c5b966058f04954ef7a9df0806170f6c28ab29, code=INVALID_ARGUMENT, version=6.15.0)"
   }
 ]

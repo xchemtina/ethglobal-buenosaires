@@ -5,29 +5,22 @@ schema:
 
 dataSources:
   - kind: ethereum
-    name: PoX
-    network: calibnet
+    name: PoXRegistry
+    network: calibration
     source:
-      address: "0xYourContractHere"
-      abi: PoXContract
-      startBlock: 1234567
+      address: "0xa6fa61924f06db9a84b92182b69f5c08f3176554"
+      abi: PoXRegistry
+      startBlock: 3847000
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - Experiment
-        - Sample
-        - Chromatogram
-        - Challenge
       abis:
-        - name: PoXContract
-          file: ./abis/PoXContract.json
+        - name: PoXRegistry
+          file: ./abis/PoXRegistry.json
       eventHandlers:
-        - event: ExperimentSubmitted(indexed bytes32,indexed address,string,string)
-          handler: handleExperimentSubmitted
-        - event: ChallengeInitiated(indexed bytes32,indexed address)
-          handler: handleChallengeInitiated
-        - event: ChallengeResolved(indexed bytes32,string)
-          handler: handleChallengeResolved
+        - event: ExperimentRegistered(indexed uint256,indexed address,string,bytes32,bytes32,uint256,int256,uint64)
+          handler: handleExperimentRegistered
       file: ./src/mapping.ts
