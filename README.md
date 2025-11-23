@@ -2,6 +2,9 @@
 
 **Decentralized reputation protocol rewarding validated scientific experiments with type-aware incentives.**
 
+> 🚀 **Live on Filecoin Calibration Testnet**  
+> Smart contracts deployed and verified | The Graph subgraph indexing | Next.js dashboard live
+
 ## Overview
 
 PoX (Proof-of-X) is a blockchain-based reputation system where scientists earn credentials by submitting analytical chemistry data. **V2 Update**: The system now features **experiment-type-specific peer review** with scientifically-calibrated reputation multipliers (PXRD 3×, NMR 2×, HPLC 1×) that align incentives with real error rates.
