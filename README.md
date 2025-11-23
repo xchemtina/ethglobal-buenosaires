@@ -1,4 +1,4 @@
-# PoX — Proof-of-X: Type-Specific Peer Review for Science
+# PoX — Proof-of-X: Type-Specific Peer Review for Experimental Data in Chemistry & Physics
 
 **Decentralized reputation protocol rewarding validated scientific experiments with type-aware incentives.**
 
