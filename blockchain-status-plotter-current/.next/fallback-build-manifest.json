@@ -1,0 +1,12 @@
+{
+  "pages": {
+    "/_app": []
+  },
+  "devFiles": [],
+  "polyfillFiles": [],
+  "lowPriorityFiles": [
+    "static/eSQfypaXVgeo_vkdGaYSA/_ssgManifest.js",
+    "static/eSQfypaXVgeo_vkdGaYSA/_buildManifest.js"
+  ],
+  "rootMainFiles": []
+}

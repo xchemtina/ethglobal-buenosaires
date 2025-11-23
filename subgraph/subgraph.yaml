@@ -10,7 +10,7 @@ dataSources:
     source:
       address: "0xa6fa61924f06db9a84b92182b69f5c08f3176554"
       abi: PoXRegistry
-      startBlock: 3847000
+      startBlock: 3217000
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

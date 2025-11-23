@@ -22,6 +22,25 @@
 - [x] Codegen run successfully
 - [x] Build completed successfully (WASM compiled)
 
+## 🤖 AI MCP Agent (NEW!)
+
+**The key innovation**: AI agent that watches The Graph and creates an automated, decentralized lab journal!
+
+- [x] Watcher agent created (`ai-agent/watcher.mjs`)
+- [x] Fetches raw data from Filecoin via CID
+- [x] Runs deterministic HPLC analysis
+- [x] Verifies fraud proofs (recomputes hashes)
+- [x] Generates enriched journal entries
+- [x] Architecture documented
+
+**This enables:**
+- Automatic journal generation (no manual curation)
+- Trustless peer review (anyone can verify)
+- Decentralized analysis (multiple agents can run)
+- AI enrichment (ML classification, GPT summaries)
+
+**Value Proposition**: `n×(AI+Scientist) >>> "AI-Scientist"`
+
 ## 🔴 TODO (Before Demo - 12 Hours)
 
 ### The Graph Deployment

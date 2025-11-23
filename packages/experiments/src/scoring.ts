@@ -8,7 +8,10 @@ export const DEFAULT_DIFFICULTY_PARAMS: DifficultyParams = {
   gamma: 0.5,  // weight on log(nPoints)
 };
 
-export function computeDifficulty(
+/**
+ * Compute base analytical difficulty (before metadata multiplier)
+ */
+export function computeBaseDifficulty(
   analysis: HPLCAnalysis,
   nPoints: number,
   params: DifficultyParams = DEFAULT_DIFFICULTY_PARAMS
@@ -23,6 +26,28 @@ export function computeDifficulty(
     gamma * Math.log(nPoints);
 
   return Math.max(1, D);
+}
+
+/**
+ * Compute final difficulty including metadata multiplier
+ * 
+ * D_final = D_base × metadataMultiplier × techniqueMultiplier
+ * 
+ * Where:
+ * - metadataMultiplier: 1.0 (minimal) to 5.0 (publication-ready)
+ * - techniqueMultiplier: 1.0 (HPLC), 1.5 (NMR), 1.3 (GC-MS)
+ */
+export function computeDifficulty(
+  analysis: HPLCAnalysis,
+  nPoints: number,
+  metadataMultiplier: number = 1.0,
+  techniqueMultiplier: number = 1.0,
+  params: DifficultyParams = DEFAULT_DIFFICULTY_PARAMS
+): number {
+  const baseD = computeBaseDifficulty(analysis, nPoints, params);
+  const finalD = baseD * metadataMultiplier * techniqueMultiplier;
+  
+  return Math.max(1, finalD);
 }
 
 /**

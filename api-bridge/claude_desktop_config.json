@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "thegraph-token-api": {
+      "url": "https://api.thegraph.market/token-api",
+      "headers": {
+        "Authorization": "Bearer YOUR_JWT_TOKEN_HERE"
+      },
+      "description": "The Graph Token API for blockchain token data"
+    }
+  }
+}

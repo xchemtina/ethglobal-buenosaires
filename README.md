@@ -1,10 +1,12 @@
-# PoX — Proof-of-X: Decentralized Scientific Reputation
+# PoX — Proof-of-X: Type-Specific Peer Review for Science
 
-**Proof-of-concept blockchain protocol for validating and rewarding experimental scientific work.**
+**Decentralized reputation protocol rewarding validated scientific experiments with type-aware incentives.**
 
 ## Overview
 
-PoX (Proof-of-X) implements a reputation system where scientists earn verifiable credentials by submitting experimental analytical chemistry data (HPLC chromatograms and VOC sensor readings). The system combines:
+PoX (Proof-of-X) is a blockchain-based reputation system where scientists earn credentials by submitting analytical chemistry data. **V2 Update**: The system now features **experiment-type-specific peer review** with scientifically-calibrated reputation multipliers (PXRD 3×, NMR 2×, HPLC 1×) that align incentives with real error rates.
+
+The system combines:
 
 - **Off-chain data generation**: Python scripts generate synthetic HPLC/VOC traces for testing
 - **Decentralized storage**: Synapse (FilOzone/Filecoin) stores raw experimental data
@@ -61,10 +63,12 @@ ETHGlobalBuenosAires/
 ├── HPLC_traces/               # Python scripts for generating synthetic data
 │   └── GenerateTraces.py      # Creates HPLC chromatograms with peaks, noise
 │
-├── contracts/                 # Solidity smart contracts (Filecoin Cloud)
-│   ├── PoXRegistry.sol        # Experiment registration with CID storage
+├── contracts/                 # Solidity smart contracts (Filecoin Calibration)
+│   ├── PoXRegistry.sol        # V1: Original experiment registration
+│   ├── PoXRegistryV2.sol      # V2: With ExperimentType support
 │   ├── Reputation.sol         # Shared reputation ledger
-│   └── ChallengeManager.sol   # Fraud proofs & disputes
+│   ├── ChallengeManager.sol   # V1: Generic fraud proofs
+│   └── PeerReviewManager.sol  # V2: Type-specific peer review system
 │
 ├── subgraph/                  # The Graph Protocol indexer
 │   ├── schema.graphql         # GraphQL schema for metadata
@@ -92,12 +96,76 @@ ETHGlobalBuenosAires/
 ├── script-tag/                # Synapse SDK browser demo
 │   └── index.html             # Minimal ESM example
 │
-├── packages/experiments/      # TypeScript HPLC simulation (optional)
-│   └── src/                   # Peak detection, scoring algorithms
+├── packages/
+│   ├── experiments/           # TypeScript HPLC simulation
+│   │   └── src/
+│   │       ├── types.ts       # Core types
+│   │       ├── types-v2.ts    # V2: Experiment types, review types
+│   │       ├── pox.ts         # HPLC experiment generation
+│   │       └── scoring.ts     # Difficulty scoring
+│   └── nmr-experiments/       # NMR experiment simulation
+│       └── src/
+│           ├── simulate-nmr.ts # Lorentzian peaks, J-coupling
+│           ├── cli.ts          # Command-line interface
+│           └── batch-generate.ts # Batch generation
 │
 └── foundry/                   # Deployment scripts
     └── script/                # Forge deployment automation
 ```
+
+## What's New in V2 (Nov 23, 2025)
+
+### Type-Specific Peer Review System
+
+**Core Innovation**: Different experiment types have different error rates → different review rewards
+
+| Experiment Type | Error Rate | Review Multiplier | Why |
+|-----------------|------------|-------------------|-----|
+| **PXRD** | >50% | **3×** | Rietveld refinement errors rampant |
+| **NMR** | 30-40% | **2×** | Connectivity/stereochemistry mistakes |
+| **MS/MS** | 20-30% | **2×** | Fragment assignment errors |
+| **HPLC** | 5-10% | **1×** | Peak integration (straightforward) |
+| **Air Quality** | varies | **1×** | Sensor data (baseline) |
+
+**Key Features**:
+- Auto-detection of experiment type from difficulty score
+- Type-aware reputation multipliers in PeerReviewManager contract
+- Review submissions with alternative interpretations (stored as CIDs)
+- Economic incentives aligned with scientific reality
+
+**New Contracts** (V2):
+- `PoXRegistryV2.sol` (174 lines): ExperimentType enum, auto-type detection
+- `PeerReviewManager.sol` (307 lines): Type-specific reputation multipliers
+
+**New SDK** (V2):
+- `packages/experiments/src/types-v2.ts` (177 lines): TypeScript types, helpers
+
+**New Docs**:
+- `PEER_REVIEW_ROADMAP.md` (484 lines): Multi-modal vision, 4-phase roadmap
+- `V2_IMPLEMENTATION_SUMMARY.md` (458 lines): Complete technical details
+
+### NMR Experiment Support
+
+**Real NMR Simulation**: 40 ¹H NMR experiments generated with realistic physics:
+- Lorentzian lineshapes (not Gaussian)
+- Chemical shift regions (aromatic, aliphatic, TMS)
+- Multiplet generation (singlets, doublets, triplets, quartets)
+- J-coupling patterns
+- 8,192 data points per spectrum
+- Difficulty formula: `D = 8 + 0.8·nPeaks + 2.0·complexPeaks`
+
+**Generated**: 40 NMR experiments (seeds 1000-1029) in `packages/nmr-experiments/output/`
+
+**On-Chain**: 7 NMR experiments uploaded to Filecoin (IDs 17-24 on testnet)
+
+### Dashboard Enhancements
+
+**Live Dashboard**: http://localhost:3000/experiments
+- 25 experiments on-chain (16 HPLC + 2 Air Quality + 7 NMR)
+- Auto-refresh every 30 seconds
+- Type-specific badges and icons
+- Peer review challenge system UI
+- Real-time Filecoin data retrieval via Synapse SDK
 
 ## Quick Start
 
@@ -156,7 +224,18 @@ cast send <REPUTATION_ADDR> "setAuthorized(address,address)" \
   --private-key $PRIVATE_KEY
 ```
 
-**Current Status**: Contracts NOT yet deployed to Filecoin Cloud
+**Deployment Status** (Nov 23, 2025):
+- **V1 Contracts** (Filecoin Calibration Testnet):
+  - Reputation: `0xFBF4854D38C77bD4B74fb0c65d9C249fd7bdeFA1`
+  - Registry: `0xA6Fa61924F06DB9A84B92182B69F5C08F3176554`
+  - ChallengeManager: `0x6e80A987049965127f1EB69Cc49Fb4460AeB5E8B`
+  - Network: Filecoin Calibration (Chain ID: 314159)
+  - 25 experiments registered (16 HPLC + 2 Air Quality + 7 NMR)
+
+- **V2 Contracts** (Ready for deployment):
+  - PoXRegistryV2: Compiled, deployment scripts ready
+  - PeerReviewManager: Compiled, deployment scripts ready
+  - Deployment guide: `DEPLOY_V2_MANUAL.md`
 
 ### 4. Deploy The Graph Subgraph
 

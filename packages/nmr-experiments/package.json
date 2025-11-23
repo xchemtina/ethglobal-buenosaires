@@ -1,0 +1,19 @@
+{
+  "name": "@pox/nmr-experiments",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "generate": "tsx src/cli.ts",
+    "batch": "tsx src/batch-generate.ts"
+  },
+  "dependencies": {
+    "@filoz/synapse-sdk": "latest",
+    "ethers": "^6.15.0",
+    "dotenv": "^16.4.7",
+    "multiformats": "^13.3.1"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  }
+}

@@ -15,5 +15,12 @@
   "devDependencies": {
     "@graphprotocol/graph-cli": "^0.98.1",
     "@graphprotocol/graph-ts": "^0.38.2"
+  },
+  "dependencies": {
+    "@filoz/synapse-sdk": "^0.36.0",
+    "dotenv": "^17.2.3",
+    "ethers": "^6.15.0",
+    "multiformats": "^13.4.1",
+    "node-fetch": "^3.3.2"
   }
 }

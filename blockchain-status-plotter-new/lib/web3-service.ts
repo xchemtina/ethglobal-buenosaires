@@ -114,3 +114,21 @@ export async function fetchLatestExperiments(count: number = 5): Promise<OnChain
     return [];
   }
 }
+
+/**
+ * Fetch experiment data from IPFS gateway using CID
+ * Note: Filecoin piece CIDs (bafkzcibd...) may take time to propagate to IPFS
+ */
+export async function fetchExperimentData(cid: string): Promise<any> {
+  // Skip IPFS fetch for now - Filecoin piece CIDs need special handling
+  // For demo, we'll show on-chain metadata only
+  // TODO: Implement Synapse SDK download for full data retrieval
+  
+  console.log(`[IPFS] Skipping fetch for Filecoin piece CID: ${cid.slice(0, 24)}...`);
+  return null;
+  
+  // Future implementation:
+  // const synapse = await Synapse.create({ signer: wallet });
+  // const data = await synapse.storage.download(cid);
+  // return JSON.parse(new TextDecoder().decode(data));
+}

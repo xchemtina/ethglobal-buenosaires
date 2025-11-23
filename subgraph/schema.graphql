@@ -1,4 +1,4 @@
-type Experiment @entity {
+type Experiment @entity(immutable: true) {
   id: ID!
   submitter: Bytes!
   cid: String!

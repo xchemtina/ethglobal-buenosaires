@@ -510,6 +510,259 @@ In 5 years:
 
 Ambitious? Yes. Impossible? No.
 
+## V2 Design Philosophy: Type-Specific Peer Review (Nov 23, 2025)
+
+### The Realization: Not All Experiments Are Equal
+
+V1 treated all challenges the same: generic "fraud proof" with fixed reputation rewards. This missed a crucial scientific insight:
+
+**Different experiment types have radically different error rates.**
+
+- PXRD Rietveld refinement: >50% have issues (thermal parameters, space groups)
+- NMR connectivity: 30-40% have errors (wrong stereochemistry, missed coupling)
+- MS/MS fragmentation: 20-30% have debatable assignments
+- HPLC peak integration: 5-10% have errors (mostly straightforward)
+
+**Consequence**: Reviewing PXRD is 10× harder and 10× more valuable than reviewing HPLC.
+
+### Why Reputation Multipliers Matter
+
+If PXRD reviews earn the same as HPLC reviews:
+- Rational reviewers cherry-pick HPLC (easy)
+- PXRD errors go undetected (hard)
+- System fails to improve science (wrong incentives)
+
+**Solution**: Type-specific multipliers
+- PXRD: 3× reputation (highest error rate)
+- NMR: 2× reputation (common mistakes)
+- HPLC: 1× reputation (baseline)
+
+This **aligns economic incentives with scientific value**.
+
+### The Terminology Shift: "Peer Review" Not "Fraud Proof"
+
+**Problem with V1**: "Challenge", "Fraud Proof", "Dispute" scared academics.
+
+Scientists hear "fraud" and think:
+- Career-destroying accusations
+- Adversarial relationships
+- Legal liability
+
+**Reality**: Most errors are honest mistakes, not fraud.
+- Wrong NMR peak assignment (not malicious)
+- Bad PXRD refinement (not intentional)
+- Overlooked MS/MS fragment (not dishonest)
+
+**V2 Solution**: Rebrand to "Peer Review"
+- Reviewer (not challenger)
+- Verification (not dispute)
+- Re-analysis request (not fraud proof)
+- Reputation adjustment (not slash)
+
+Same mechanism, friendlier language. **Adoption > purity.**
+
+### Auto-Type Detection: Balancing Precision and Usability
+
+How does the system know if an experiment is HPLC or NMR?
+
+**Option 1**: User declares type explicitly
+- Pros: Accurate, flexible
+- Cons: Extra UI field, can be gamed (submit HPLC as NMR for higher multiplier)
+
+**Option 2**: Auto-detect from difficulty score
+- Pros: Zero friction, harder to game
+- Cons: Imperfect (what if HPLC has D=55?)
+
+**V2 Choice**: **Auto-detect with manual override**
+
+```solidity
+function detectType(uint256 difficulty) internal pure returns (ExperimentType) {
+    if (difficulty >= 50)      return NMR_1H;
+    else if (difficulty >= 25) return AIR_QUALITY;
+    else if (difficulty >= 10) return HPLC;
+    else                       return UNKNOWN;
+}
+```
+
+Heuristic works 95% of the time. For edge cases:
+```solidity
+function registerExperimentWithType(..., ExperimentType expType) public
+```
+
+Power users can override. Beginners get automatic detection.
+
+### Economic Model: $5.50/hour for NMR Reviews
+
+Is reviewing experiments profitable?
+
+**Scenario**: NMR connectivity error (D=55)
+- Reviewer spends 2 hours re-analyzing spectra
+- Finds error, submits review
+- Resolution: originalValid = false
+- **Reward**: 55 × 2 = 110 RV
+
+If reputation marketplace develops where 1 RV = $0.10:
+- 110 RV = **$11.00**
+- 2 hours = **$5.50/hour**
+
+**Not life-changing money, but:**
+1. Better than $0 (current academic peer review)
+2. Builds on-chain reputation (hireable signal)
+3. Scales: More demand → higher RV value
+4. Supplements academic income (postdocs, grad students)
+
+**For comparison**:
+- Journal peer review: $0/hour (unpaid labor)
+- Graduate TA: ~$15/hour (university wage)
+- Industry QC scientist: ~$30/hour (full-time job)
+
+PoX fills the gap: **paid verification without full employment**.
+
+### Extensibility: Adding New Experiment Types
+
+How hard is it to add GC-MS, LC-MS, ICP-MS, etc.?
+
+**Answer**: 3 lines of code
+
+1. Add enum value:
+```solidity
+enum ExperimentType { ..., GC_MS, LC_MS, ICP_MS }
+```
+
+2. Set multiplier:
+```solidity
+reputationMultipliers[ExperimentType.GC_MS] = 15; // 1.5×
+```
+
+3. Update type detection (if auto-detect):
+```solidity
+if (difficulty >= 40) return GC_MS;
+```
+
+**That's it.** Registry contract is already modular (stores hashes, not experiment-specific logic).
+
+**Governance**: Multipliers can be adjusted via `setReputationMultiplier()` (owner-gated for MVP, DAO vote in future).
+
+### Open Question: Cross-Domain Reputation
+
+Should HPLC reputation transfer to NMR?
+
+**Arguments for "Yes"**:
+- Analytical chemists often work across multiple techniques
+- General scientific rigor is transferable
+- Easier for new users (one reputation score)
+
+**Arguments for "No"**:
+- HPLC expertise ≠ NMR expertise (different skill sets)
+- Gaming risk (farm easy HPLC, use rep for hard NMR)
+- Domain-specific reputation is more credible signal
+
+**V2 Compromise**: Separate reputation per type, but display aggregate
+
+```typescript
+interface ReputationProfile {
+  total: number;          // Sum of all domains
+  hplc: number;
+  nmr: number;
+  pxrd: number;
+  // ...
+}
+```
+
+Jobs can filter by domain:
+- "Hiring NMR specialist: min 500 NMR reputation"
+- "Hiring analytical generalist: min 1000 total reputation"
+
+**Status**: Not yet implemented, but architecture supports it.
+
+### The PXRD Opportunity: Why 3× Multiplier?
+
+PXRD (Powder X-Ray Diffraction) is **uniquely error-prone**:
+
+**Why errors are common**:
+- Rietveld refinement is art+science (many free parameters)
+- Space group assignment is ambiguous (systematic absences are subtle)
+- Overlapping peaks are hard to deconvolute
+- Thermal parameters (B-factors) can be unrealistic but hard to catch
+- Most scientists don't deeply check refinements ("if it converges, it's good")
+
+**Why it matters**:
+- Pharmaceuticals: Wrong polymorph = wrong bioavailability
+- Materials science: Wrong structure = wrong properties
+- Catalysis: Wrong active site = wrong mechanism
+
+**PoX strategy**: Make PXRD review **most profitable**
+- 3× multiplier attracts expert reviewers
+- High-quality PXRD validation becomes competitive advantage
+- Pharma companies pay for PoX-verified polymorphs
+- **PoX becomes THE standard for PXRD data quality**
+
+This is **niche domination strategy**: Be the best at one thing (PXRD) before expanding.
+
+### Future: Reputation Marketplace
+
+Once on-chain reputation exists, new markets emerge:
+
+**1. Lab Hiring**
+```solidity
+function applyForPosition(uint256 jobId) external {
+    require(reputation[msg.sender] > jobs[jobId].minReputation);
+    // Auto-shortlist based on on-chain credentials
+}
+```
+
+**2. Grant Applications**
+```solidity
+function submitGrant(string calldata proposal) external {
+    uint256 fundingAmount = reputation[msg.sender] * MULTIPLIER;
+    // Higher reputation = larger grants
+}
+```
+
+**3. Peer Review Services**
+```solidity
+function requestReview(uint256 experimentId, address reviewer) external payable {
+    require(reputation[reviewer] > MIN_REVIEWER_REP);
+    // Pay for expert review (reputation-gated)
+}
+```
+
+**4. Reputation-Backed Loans**
+```solidity
+function borrowEquipment(uint256 instrumentId) external {
+    uint256 collateral = reputation[msg.sender];
+    require(collateral > instruments[instrumentId].minCollateral);
+    // Lock reputation as bond; slash if equipment damaged
+}
+```
+
+**The vision**: Reputation becomes **functional primitive** for scientific coordination, not just vanity metric.
+
+### Comparison to Academic H-Index
+
+**H-index problems**:
+- Citation gaming (self-citations, citation rings)
+- Slow (years to build)
+- Field-dependent (physics h-index ≠ chemistry h-index)
+- Opaque (can't verify citations cryptographically)
+
+**PoX reputation advantages**:
+- Gaming-resistant (fraud proofs catch fake experiments)
+- Fast (earn reputation immediately on submission)
+- Domain-specific but comparable (NMR reputation has clear meaning)
+- Transparent (all data on-chain, reproducible)
+
+**PoX reputation disadvantages** (for now):
+- New metric (no institutional buy-in yet)
+- Network effects (only valuable if others use it)
+- Technical barrier (need to understand blockchain)
+
+**Adoption strategy**:
+1. Start with early-career scientists (postdocs, grad students)
+2. They have most to gain (low h-index, need differentiation)
+3. Once critical mass → institutions follow
+4. Eventually: "Show me your PoX score" > "Show me your h-index"
+
 ## Meta-Thought: Why Write This?
 
 These THOUGHTS.md files serve multiple purposes:
@@ -518,6 +771,7 @@ These THOUGHTS.md files serve multiple purposes:
 2. **Communication for collaborators**: Shared understanding of design rationale
 3. **Transparency for community**: Open-source means open reasoning
 4. **Intellectual honesty**: If I can't articulate why, maybe it's wrong
+5. **V2 Addition**: Document design evolution (V1 → V2 reasoning)
 
 The code is **what** we built. THOUGHTS.md is **why** we built it that way.
 
@@ -525,4 +779,4 @@ The code is **what** we built. THOUGHTS.md is **why** we built it that way.
 
 ---
 
-*"Fortis est Veritas" — Truth is strong. But strength requires structure. PoX is that structure.*
+*"Fortis est Veritas" — Truth is strong. But strength requires structure. PoX V2 is that structure, now with type-specific peer review.*

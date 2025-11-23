@@ -83,3 +83,38 @@ export type VocData = {
   dataPoints: VocDataPoint[]
   metrics: VocMetrics
 }
+
+// --- Air Quality Data Types (RPi5 Integration) ---
+export type AirQualityDataPoint = {
+  time: number // seconds
+  formaldehyde: number // ppb
+  pm2_5: number // μg/m³
+  light: number // ADC value
+}
+
+export type AirQualityMetrics = {
+  avg_formaldehyde_ppb: number
+  max_formaldehyde_ppb: number
+  avg_pm2_5_ugm3: number
+  max_pm2_5_ugm3: number
+  humidity_rh: number
+  temperature_c: number
+  light_level: number
+  air_quality_index: number
+  status: string
+}
+
+export type AirQualityData = {
+  sampleId: string
+  experimentType: "AIR_QUALITY" | "HPLC"
+  method: string
+  sensors: string[]
+  location: string
+  device: string
+  timestamp: string
+  dataPoints: AirQualityDataPoint[]
+  metrics: AirQualityMetrics
+  scenario: "good" | "moderate" | "unhealthy_sensitive" | "unhealthy" | "hazardous"
+  cid?: string
+  onChainId?: number
+}

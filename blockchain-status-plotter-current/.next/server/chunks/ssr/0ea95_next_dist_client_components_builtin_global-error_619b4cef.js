@@ -1,0 +1,3 @@
+module.exports=[14177,(a,b,c)=>{let{createClientModuleProxy:d}=a.r(39491);a.n(d("[project]/ETHGlobalBuenosAires/blockchain-status-plotter-current/node_modules/.pnpm/next@16.0.3_react-dom@19.2.0_react@19.2.0__react@19.2.0/node_modules/next/dist/client/components/builtin/global-error.js <module evaluation>"))},30375,(a,b,c)=>{let{createClientModuleProxy:d}=a.r(39491);a.n(d("[project]/ETHGlobalBuenosAires/blockchain-status-plotter-current/node_modules/.pnpm/next@16.0.3_react-dom@19.2.0_react@19.2.0__react@19.2.0/node_modules/next/dist/client/components/builtin/global-error.js"))},67605,a=>{"use strict";a.i(14177);var b=a.i(30375);a.n(b)}];
+
+//# sourceMappingURL=0ea95_next_dist_client_components_builtin_global-error_619b4cef.js.map

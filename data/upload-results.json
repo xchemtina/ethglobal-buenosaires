@@ -1,52 +1,84 @@
 [
   {
-    "success": false,
-    "sampleId": "trace-001.json",
-    "error": "invalid string value (argument=\"str\", value=0x0155912023eb770c5fb0e52bb385defe70aa3dfc1cf408ac5c2517f3aeae5731c036effa7a4ce21c, code=INVALID_ARGUMENT, version=6.15.0)"
+    "success": true,
+    "sampleId": "HPLC-0001",
+    "experimentId": "8",
+    "cid": "bafkzcibd5n3qyx5q4uv3hbo67zykupp4dt2arlc4eul7hlvok4y4anxp7j5ezyq4",
+    "txHash": "0x89c183aadc3cc54799106549af94cecdd4983ecfb91ca818a4698bf48d851518",
+    "difficulty": 9,
+    "blockNumber": 3217627
   },
   {
-    "success": false,
-    "sampleId": "trace-002.json",
-    "error": "invalid string value (argument=\"str\", value=0x0155912023e57f0c8b0a37d513a80b99ae5e21f12206638086211b33634363ee4c06fd28a97bbe0d, code=INVALID_ARGUMENT, version=6.15.0)"
+    "success": true,
+    "sampleId": "HPLC-0002",
+    "experimentId": "9",
+    "cid": "bafkzcibd4v7qzcykg7krhkaltgxf4ipreidghaegeentgy2dmpxeybx5fcuxxpqn",
+    "txHash": "0xfb38e276678bed8f3a491ced862859ebd1d2cdd9df0bb513c7d1f168f455eb79",
+    "difficulty": 8,
+    "blockNumber": 3217632
   },
   {
-    "success": false,
-    "sampleId": "trace-003.json",
-    "error": "invalid string value (argument=\"str\", value=0x0155912023c3770c21418fd598742a848ebbebafebd8cab847047642ac4ae9846e85b7cc7b793d1b, code=INVALID_ARGUMENT, version=6.15.0)"
+    "success": true,
+    "sampleId": "HPLC-0003",
+    "experimentId": "10",
+    "cid": "bafkzcibdyn3qyikbr7kzq5bkqshlx25p5pmmvochar3eflck5gcg5bnxzr5xspi3",
+    "txHash": "0xda7ea4014b82fead3c058a5fb1ef46f9be0ee6b30153eb38a46ce70a24d92a8c",
+    "difficulty": 9,
+    "blockNumber": 3217637
   },
   {
-    "success": false,
-    "sampleId": "trace-004.json",
-    "error": "invalid string value (argument=\"str\", value=0x0155912023897f0c0e8c5c3a7e6dcab89b02d19ea3583b10dc3c69f9f5a3cf32063cf48178d8ca1c, code=INVALID_ARGUMENT, version=6.15.0)"
+    "success": true,
+    "sampleId": "HPLC-0004",
+    "experimentId": "11",
+    "cid": "bafkzcibdrf7qydumlq5h43okxcnqfum6unmdweg4hru7t5ndz4zamphuqf4nrsq4",
+    "txHash": "0x7802128fd69fd1eaa5340e8a84aed3f17597416ede039305f34d1b3c3788c592",
+    "difficulty": 9,
+    "blockNumber": 3217641
   },
   {
-    "success": false,
-    "sampleId": "trace-005.json",
-    "error": "invalid string value (argument=\"str\", value=0x0155912023dc7f0cda231fc0f35770c61832b8ec953a077c955d77b5fd63900d3dd86ec1225c4604, code=INVALID_ARGUMENT, version=6.15.0)"
+    "success": true,
+    "sampleId": "HPLC-0005",
+    "experimentId": "12",
+    "cid": "bafkzcibd3r7qzwrdd7apgv3qyymdfohmsu5ao7evlv33l7ldsagt3wdoyerfyrqe",
+    "txHash": "0x95361aaf1c03791f1087f8b336cc6164f94d642e76fa5f7302150c658007c7b9",
+    "difficulty": 9,
+    "blockNumber": 3217646
   },
   {
-    "success": false,
-    "sampleId": "trace-006.json",
-    "error": "invalid string value (argument=\"str\", value=0x015591202398770c3d68e589277b3a99d2de67c91a36b5cd2db764f31f911545fb2d8d481f361818, code=INVALID_ARGUMENT, version=6.15.0)"
+    "success": true,
+    "sampleId": "HPLC-0006",
+    "experimentId": "13",
+    "cid": "bafkzcibdtb3qypli4weso6z2thjn4z6jdi3lltjnw5spgh4rcvc7wlmnjaptmgay",
+    "txHash": "0x4d27fc6e6f8fb433a0309046ed1314484b9bc89f2be5d05418686dd9bcbead68",
+    "difficulty": 8,
+    "blockNumber": 3217650
   },
   {
     "success": false,
     "sampleId": "trace-007.json",
-    "error": "invalid string value (argument=\"str\", value=0x01559120248b80010cf6c7882217408642fcf47b12a92f7d07f0553f1ca9f1a6a897f049881c27a82b, code=INVALID_ARGUMENT, version=6.15.0)"
+    "error": "StorageContext uploadPiece failed: Failed to upload piece to service provider - fetch failed"
   },
   {
-    "success": false,
-    "sampleId": "trace-008.json",
-    "error": "invalid string value (argument=\"str\", value=0x0155912023fb750c7532211c9c12236d1ce7bde9312880989bba854e5f5f74bfc702dbc796585f11, code=INVALID_ARGUMENT, version=6.15.0)"
+    "success": true,
+    "sampleId": "HPLC-0008",
+    "experimentId": "14",
+    "cid": "bafkzcibd7n2qy5jseeojyerdnuoopppjgeuibge3xkcu4x27os74oaw3y6lfqxyr",
+    "txHash": "0x9e0a65be87ff7a9e0b589f8e28d2f8af50d5882ad2c7c0237ae38c7fe85c5d7c",
+    "difficulty": 9,
+    "blockNumber": 3217655
   },
   {
-    "success": false,
-    "sampleId": "trace-009.json",
-    "error": "invalid string value (argument=\"str\", value=0x0155912023e2750cb361a5b28b841d4762978233168c35cefda7be89b6f3851d9766b9c849c2f914, code=INVALID_ARGUMENT, version=6.15.0)"
+    "success": true,
+    "sampleId": "HPLC-0009",
+    "experimentId": "15",
+    "cid": "bafkzcibd4j2qzm3buwzixba5i5rjpartc2gdltx5u67itnxtquozozvzzbe4f6iu",
+    "txHash": "0x5a40c73f95aa3f9c408c0a63f8d105d90cb3e538e8d895727b0c94bdcc2c0e8a",
+    "difficulty": 7,
+    "blockNumber": 3217659
   },
   {
     "success": false,
     "sampleId": "trace-010.json",
-    "error": "invalid string value (argument=\"str\", value=0x0155912023a2780ce301bb299e31ca26d3f5685f74c5b966058f04954ef7a9df0806170f6c28ab29, code=INVALID_ARGUMENT, version=6.15.0)"
+    "error": "StorageContext uploadPiece failed: Failed to upload piece to service provider - fetch failed"
   }
 ]

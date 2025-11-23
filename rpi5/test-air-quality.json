@@ -1,0 +1,25 @@
+Warning: smbus2 not installed. Run: pip3 install smbus2
+Warning: Adafruit CircuitPython libs not installed.
+Run: pip3 install adafruit-circuitpython-ads1x15
+🌡️  RPi5 Air Quality Sensor Reader
+============================================================
+
+📊 Reading sensors for sample: AIR-1763857476
+
+📈 Sensor readings:
+  Formaldehyde: None ppb
+  PM2.5: None μg/m³
+  PM10: None μg/m³
+  Humidity: None %RH
+  Temperature: None °C
+  Light: 1821
+
+📦 Formatting as PoX experiment...
+Traceback (most recent call last):
+  File "/Users/crischimiadao/ETHGlobalBuenosAires/rpi5/read_sensors.py", line 256, in <module>
+    main()
+  File "/Users/crischimiadao/ETHGlobalBuenosAires/rpi5/read_sensors.py", line 247, in main
+    experiment = format_as_experiment(sensor_data, sample_id)
+  File "/Users/crischimiadao/ETHGlobalBuenosAires/rpi5/read_sensors.py", line 151, in format_as_experiment
+    "formaldehyde": sensor_data["formaldehyde_ppb"] + (i % 5) * 0.5,
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'float'
