@@ -2,9 +2,6 @@
 
 **Decentralized reputation protocol rewarding validated scientific experiments with type-aware incentives.**
 
-> 🚀 **Live on Filecoin Calibration Testnet**  
-> Smart contracts deployed and verified | The Graph subgraph indexing | Next.js dashboard live
-
 ## Overview
 
 PoX (Proof-of-X) is a blockchain-based reputation system where scientists earn credentials by submitting analytical chemistry data. **V2 Update**: The system now features **experiment-type-specific peer review** with scientifically-calibrated reputation multipliers (PXRD 3×, NMR 2×, HPLC 1×) that align incentives with real error rates.
@@ -163,7 +160,7 @@ ETHGlobalBuenosAires/
 
 ### Dashboard Enhancements
 
-**Live Dashboard**: http://localhost:3000/experiments
+**Live Dashboard**: http://localhost:3000/experiments or https://chimiadaopox-n5tm7nkgf-chimia-dao-foundation.vercel.app/
 - 25 experiments on-chain (16 HPLC + 2 Air Quality + 7 NMR)
 - Auto-refresh every 30 seconds
 - Type-specific badges and icons
@@ -195,12 +192,6 @@ npm run dev
 # Connect MetaMask to Filecoin network
 # Upload HPLC trace → receive CID
 ```
-
-**TO DO**: Build upload script that:
-- Reads HPLC traces from `HPLC_traces/` directory
-- Uploads each to Synapse
-- Returns CID + transaction hash
-- **Pays uploader for contribution** (incentive mechanism)
 
 ### 3. Deploy Smart Contracts to Filecoin Cloud
 
@@ -251,14 +242,6 @@ graph build
 graph deploy --studio pox-filecoin
 ```
 
-**TO DO**: Configure subgraph to:
-- Index `ExperimentRegistered` events
-- Store metadata in LLM-friendly format
-- Link Filecoin CID + transaction hash
-- Enable GraphQL queries for dashboard
-
-**Current Status**: Subgraph NOT yet deployed
-
 ### 5. Run Dashboard Locally
 
 ```bash
@@ -274,18 +257,6 @@ pnpm install
 pnpm dev
 # Open http://localhost:3000
 ```
-
-**NEW: Real HPLC Trace Integration**
-- HPLC traces from `data/traces/*.json` can now be loaded directly
-- See `HPLC_TRACES.md` for complete integration guide
-- To enable real data: uncomment lines in `lib/data-service.ts`
-
-**TO DO**: Connect to blockchain:
-- Replace `data-service.ts` mock functions with:
-  - Web3 calls to PoXRegistry contract
-  - GraphQL queries to subgraph
-  - Synapse SDK calls to fetch HPLC traces by CID
-- Add wallet connection (ethers.js + MetaMask)
 
 **Current Status**: Dashboard runs locally with mock data OR real HPLC traces
 
@@ -382,230 +353,6 @@ Verification flow:
 | **UI Components** | Radix UI, Tailwind CSS | Modern, accessible components |
 | **Charts** | Recharts | Chromatogram visualization |
 | **Package Manager** | pnpm | Monorepo with workspaces |
-
-## Critical Integration Points
-
-### 1. Filecoin Upload Script (HIGH PRIORITY)
-
-**What**: Script to upload HPLC traces to Filecoin and register on-chain
-
-**Implementation**:
-```typescript
-// scripts/upload-experiments.ts
-import { Synapse } from '@filoz/synapse-sdk';
-import { ethers } from 'ethers';
-import fs from 'fs';
-
-async function uploadAndRegister(hplcFilePath: string) {
-  // 1. Read HPLC trace
-  const traceData = JSON.parse(fs.readFileSync(hplcFilePath));
-  
-  // 2. Upload to Synapse
-  const provider = new ethers.JsonRpcProvider(process.env.FILECOIN_CLOUD_RPC);
-  const wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
-  const synapse = await Synapse.create({ provider: wallet });
-  const cid = await synapse.upload(traceData);
-  
-  // 3. Compute hashes
-  const dataHash = ethers.keccak256(ethers.toUtf8Bytes(JSON.stringify(traceData)));
-  const metricsHash = ethers.keccak256(ethers.toUtf8Bytes(JSON.stringify(traceData.metrics)));
-  
-  // 4. Register on-chain
-  const registry = new ethers.Contract(REGISTRY_ADDRESS, REGISTRY_ABI, wallet);
-  const tx = await registry.registerExperiment(
-    cid,
-    dataHash,
-    metricsHash,
-    traceData.difficulty,
-    traceData.rvInitial,
-    { value: ethers.parseEther("0.01") } // Pay for storage
-  );
-  
-  console.log(`Registered experiment ${traceData.sampleId}: tx ${tx.hash}, CID ${cid}`);
-}
-```
-
-### 2. Dashboard Web3 Integration (HIGH PRIORITY)
-
-**What**: Connect dashboard to contracts and Synapse
-
-**Files to modify**:
-- `blockchain-status-plotter/lib/data-service.ts`
-- `blockchain-status-plotter/lib/web3.ts` (NEW)
-- `blockchain-status-plotter/components/dashboard-layout.tsx`
-
-**Implementation**:
-```typescript
-// lib/web3.ts
-import { ethers } from 'ethers';
-import { Synapse } from '@filoz/synapse-sdk';
-
-export async function connectWallet() {
-  if (!window.ethereum) throw new Error("MetaMask not installed");
-  
-  const provider = new ethers.BrowserProvider(window.ethereum);
-  await provider.send("eth_requestAccounts", []);
-  const signer = await provider.getSigner();
-  
-  return { provider, signer };
-}
-
-// lib/data-service.ts
-import { ethers } from 'ethers';
-import { REGISTRY_ADDRESS, REGISTRY_ABI } from './contracts';
-
-export async function fetchBlockchainTransactions() {
-  const provider = new ethers.JsonRpcProvider(process.env.NEXT_PUBLIC_FILECOIN_RPC);
-  const registry = new ethers.Contract(REGISTRY_ADDRESS, REGISTRY_ABI, provider);
-  
-  // Listen to ExperimentRegistered events
-  const filter = registry.filters.ExperimentRegistered();
-  const events = await registry.queryFilter(filter, -100); // Last 100 blocks
-  
-  return events.map(e => ({
-    id: e.args.id.toString(),
-    submitter: e.args.submitter,
-    cid: e.args.cid,
-    timestamp: new Date(Number(e.args.submittedAt) * 1000).toISOString(),
-    // ...
-  }));
-}
-
-export async function fetchHplcData(cid: string): Promise<HplcData> {
-  const { provider } = await connectWallet();
-  const synapse = await Synapse.create({ provider });
-  
-  // Download raw trace from Filecoin
-  const trace = await synapse.download(cid);
-  
-  return {
-    sampleId: trace.sampleId,
-    method: trace.method,
-    dataPoints: trace.points.map(p => ({
-      time: p.time,
-      experimental: p.signal,
-      theoretical: p.signal * 0.98 // Mock for now
-    })),
-    metrics: trace.metrics
-  };
-}
-```
-
-### 3. The Graph Subgraph Configuration (MEDIUM PRIORITY)
-
-**What**: Index contract events for GraphQL querying
-
-**Files to create/modify**:
-- `subgraph/schema.graphql`
-- `subgraph/subgraph.yaml`
-- `subgraph/src/mapping.ts`
-
-**Schema** (`schema.graphql`):
-```graphql
-type Experiment @entity {
-  id: ID!
-  experimentId: BigInt!
-  submitter: Bytes!
-  cid: String!
-  dataHash: Bytes!
-  metricsHash: Bytes!
-  difficulty: BigInt!
-  initialRV: BigInt!
-  submittedAt: BigInt!
-  
-  # Indexed metadata for LLM
-  experimentType: String
-  sampleId: String
-  method: String
-  
-  # Relations
-  challenges: [Challenge!] @derivedFrom(field: "experiment")
-}
-
-type Challenge @entity {
-  id: ID!
-  challengeId: BigInt!
-  experiment: Experiment!
-  challenger: Bytes!
-  computedMetricsHash: Bytes!
-  resolved: Boolean!
-  experimentValid: Boolean
-}
-
-type ReputationAdjustment @entity {
-  id: ID!
-  user: Bytes!
-  delta: BigInt!
-  newScore: BigInt!
-  timestamp: BigInt!
-}
-```
-
-## Development Workflow
-
-### Testing End-to-End Flow (Post-Integration)
-
-1. **Generate data**: `python HPLC_traces/GenerateTraces.py`
-2. **Upload**: `npx tsx scripts/upload-experiments.ts trace-001.json`
-3. **Verify contract**: Query PoXRegistry to confirm CID stored
-4. **Check subgraph**: Query GraphQL endpoint for metadata
-5. **View dashboard**: Navigate to experiment in UI, see trace rendered
-
-### Running Dashboard Locally
-
-```bash
-cd blockchain-status-plotter
-npm install
-npm run dev
-```
-
-**Environment variables needed** (`.env.local`):
-```bash
-NEXT_PUBLIC_FILECOIN_RPC=https://api.calibration.node.glif.io/rpc/v1
-NEXT_PUBLIC_REGISTRY_ADDRESS=0x...
-NEXT_PUBLIC_SUBGRAPH_URL=https://api.studio.thegraph.com/query/...
-```
-
-## Critical Next Steps (Priority Order)
-
-### Must Have (For Demo)
-1. **Deploy contracts to Filecoin Cloud**
-   - Get testnet FIL from faucet
-   - Deploy Reputation → Registry → ChallengeManager
-   - Save addresses to `.env`
-
-2. **Build upload script**
-   - Create `scripts/upload-experiments.ts`
-   - Test with one HPLC trace
-   - Verify CID and tx hash
-
-3. **Deploy subgraph**
-   - Complete `schema.graphql`
-   - Write event mappings in `src/mapping.ts`
-   - Deploy to The Graph Studio
-
-4. **Connect dashboard to contracts**
-   - Add ethers.js to `blockchain-status-plotter`
-   - Implement `web3.ts` and update `data-service.ts`
-   - Test wallet connection
-
-5. **Display real HPLC traces**
-   - Fetch CID from contract
-   - Download from Synapse
-   - Render in `hplc-analyzer.tsx`
-
-### Should Have (For Polish)
-6. Generate 10-20 HPLC traces with Python
-7. Batch upload all traces to Filecoin
-8. Test challenge flow (fraud proof)
-9. Add payment incentive to contract
-10. Polish dashboard UI
-
-### Nice to Have (Future)
-11. LLM agent integration (query subgraph, learn from experiments)
-12. Causality Network integration (real instruments)
-13. Multi-sig for ChallengeManager resolution
-14. ZK proof prototypes
 
 ## Environment Variables Required
 
