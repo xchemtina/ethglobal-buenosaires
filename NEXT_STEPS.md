@@ -25,4 +25,4 @@
 
 ### Real Data Ingestion
 - **Current State**: Python script generates synthetic data.
-- **Goal**: Connect `rpi5/` sensors to the upload pipeline to feed real-world chromatography data into the system.
+- **Goal**: Connect `rpi5/` sensors to the upload pipeline to feed real-world enviromental data into the system.
